@@ -1,2 +1,11 @@
-# okhttp-http2-client-demo
-A demo for the usage of OkHttp as an http2-client.  
+# Example Code for the OkHttp HTTP/2 client
+
+## Usage
+
+This example needs JDK 1.8.0_60 or newer.
+
+1. Checkout project at [https://github.com/janweinschenker/simple-rest-service](https://github.com/janweinschenker/simple-rest-service)
+1. Run the rest service as it is described in its readme.
+1. Checkout this OkHttp example.
+1. run `$ mvn clean package exec:exec`
+

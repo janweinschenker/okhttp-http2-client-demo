@@ -10,6 +10,10 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <okhttp.version>3.6.0</okhttp.version>
+        <okio.version>1.11.0</okio.version>
+        <junit.version>4.12</junit.version>
+        <log4j.version>1.2.17</log4j.version>
         <jetty.version>9.4.0.v20161208</jetty.version>
         <jetty.alpn-api.version>1.1.3.v20160715</jetty.alpn-api.version>
         <jetty.alpnAgent.version>2.0.5</jetty.alpnAgent.version>
@@ -38,24 +42,6 @@
                     </arguments>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
-                <executions>
-                    <execution>
-                        <id>get-jetty-alpn-agent</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>get</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>org.mortbay.jetty.alpn</groupId>
-                            <artifactId>jetty-alpn-agent</artifactId>
-                            <version>${jetty.alpnAgent.version}</version>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -63,12 +49,12 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.5.0</version>
+            <version>${okhttp.version}</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
-            <version>1.11.0</version>
+            <version>${okio.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -78,13 +64,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 </project>
