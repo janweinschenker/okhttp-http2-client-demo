@@ -4,7 +4,6 @@ import okhttp3.*;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Hello world!
@@ -23,20 +22,22 @@ public class App {
   }
 
 
+  /**
+   * This method will issue a synchronous GET request against the http server.
+   * @throws InterruptedException
+   */
   private void startRequest() throws InterruptedException {
 
     LOG.debug("======================================= Start synchronous request");
-    OkHttpClient client = getUnsafeOkHttpClient();
+    OkHttpClient client = getOkHttpClient();
     Request request = new Request.Builder()
         .url("https://localhost:8443/greeting?name=JavaLand") // The Http2Server should be running here.
         .build();
-    long startTime = System.nanoTime();
 
     try {
       Response response = client.newCall(request).execute();
-      long duration = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
       LOG.debug("Protocol version: " + response.protocol());
-      LOG.debug("After " + duration + " seconds: " + response.body().string());
+      LOG.debug("After seconds: " + response.body().string());
 
     } catch (IOException e) {
       LOG.error("IOException", e);
@@ -46,7 +47,7 @@ public class App {
 
   private void startAsyncRequest() throws InterruptedException {
     LOG.debug("======================================= Start asynchronous request");
-    OkHttpClient client = getUnsafeOkHttpClient();
+    OkHttpClient client = getOkHttpClient();
 
     Request request = new Request.Builder()
         .url("https://localhost:8443/greeting?name=JavaLand") // The Http2Server should be running here.
@@ -64,15 +65,18 @@ public class App {
         LOG.debug("content: " + response.body().string());
       }
     });
+
+    // watch the console log: the following message will be printed before the request has finished.
     LOG.debug("request created!!!");
+
+    // wait a couple of seconds until the client thread has finished.
     Thread.sleep(5000);
   }
 
-  private OkHttpClient getUnsafeOkHttpClient() {
+  private OkHttpClient getOkHttpClient() {
     try {
       OkHttpClient okHttpClient = new OkHttpClient.Builder()
           .build();
-
       return okHttpClient;
     } catch (Exception e) {
       throw new RuntimeException(e);
